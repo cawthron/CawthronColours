@@ -83,7 +83,7 @@ ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
 ![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
-# for continuous or sequential palettes we use scale_fill_gradientn (or scale_colour_manual)
+# for continuous or sequential palettes we use scale_fill_gradientn (or scale_colour_gradientn)
 ggplot(faithfuld) +
   geom_tile(aes(waiting, eruptions, fill = density)) +
   scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
