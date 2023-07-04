@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-## package in development - not yet functional!
+## package in development - could break at any moment ….
 
 The goal of `CawthronColours` is to to provide official Cawthron colour
 palettes for use in R. The colour palettes are a mix of well known
