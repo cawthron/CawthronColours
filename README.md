@@ -61,9 +61,11 @@ print_pal(caw_col)
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 Below area few examples of plots made using base `R` and
-[`ggplot2`](https://ggplot2.tidyverse.org/). We use the `gapminder`
-package to get some toy data and `rnatrualearch` to get a map of New
-Zealand.
+[`ggplot2`](https://ggplot2.tidyverse.org/). We use the
+[`gapminder`](https://github.com/jennybc/gapminder) package to get some
+toy data and
+[`rnaturalearth`](https://github.com/ropensci/rnaturalearth) to get a
+map of New Zealand.
 
 ``` r
 library(gapminder)
@@ -93,16 +95,16 @@ ggplot(faithfuld) +
 
 ``` r
 # download a map of NZ
-nz_map <- ne_states(country = "new zealand", returnclass = "sf")
+nz_map <- rnaturalearth::ne_states(country = "new zealand", returnclass = "sf")
 
 # remove outlying islands
-nz_map <- nz_map %>%
+nz_map <- nz_map |>
   dplyr::filter(region %in% c("South Island", "North Island"))
 
 # add a random variable for each region
 nz_map <- nz_map %>%
-  select(name) %>%
-  mutate(count = runif(n(), 0, 100))
+  dplyr::select(name) |>
+  dplyr::mutate(count = runif(dplyr::n(), 0, 100))
 
 # plot - use scale_fill_gradientn() and scale_colour_gradientn() to colour the
 # regions by the random variable we just created
