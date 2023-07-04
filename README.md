@@ -60,7 +60,7 @@ print_pal(caw_col)
 
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
-Below area few examples of plots made using base `R` and
+Below area few examples of plots made using
 [`ggplot2`](https://ggplot2.tidyverse.org/). We use the
 [`gapminder`](https://github.com/jennybc/gapminder) package to get some
 toy data and
