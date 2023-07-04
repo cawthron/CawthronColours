@@ -10,9 +10,9 @@ print_pal(col_pal)
 \item{col_pal}{a vector of colours}
 }
 \description{
-Plots a colour palette
+Visually inspect the given colour palette.
 }
 \examples{
-my_col_pal <- get_pal("Kakapo")
+my_col_pal <- get_pal("caw_div_3")
 print_pal(my_col_pal)
 }

@@ -3,14 +3,22 @@
 \docType{data}
 \name{cawthron_palettes}
 \alias{cawthron_palettes}
-\title{Complete list of palettes}
+\title{List of available palettes}
 \format{
-An object of class \code{list} of length 5.
+An object of class \code{list} of length 10.
 }
 \usage{
 cawthron_palettes
 }
 \description{
 Official Cawthron colour palettes. Use \code{\link{get_pal}} to extract palettes.
+}
+\details{
+Palettes include:
+\itemize{
+\item categorical: \code{caw_cat_1}, \code{caw_cat_2}
+\item diverging: \code{caw_div_1}, \code{caw_div_2}, \code{caw_div_3}
+\item sequential: \code{caw_seq_1}, \code{caw_seq_2}, \code{caw_seq_3}, \code{caw_seq_4}, \code{caw_seq_5}
+}
 }
 \keyword{datasets}

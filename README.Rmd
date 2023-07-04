@@ -8,39 +8,360 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.path = "man/figures/README-"
 )
+
+# ggplot - display colour palette
+fun_xx <- function(col_pal) {
+  n <- length(col_pal)
+  
+df1 <- data.frame(x = 1:n,
+             y = 1,
+             col = col_pal)
+
+myColors <- col_pal
+names(myColors) <- as.factor(df1$col)
+
+  ggplot(data = df1, aes(x, y , fill = col)) +
+    geom_tile() +
+    scale_fill_manual(values = myColors) +
+    theme_void() +
+    theme(legend.position = "none")
+}
+
+library(tidyverse)
+library(gapminder)
+library(CawthronColours)
+library(patchwork)
+library(rnaturalearth)
+
+
+nz_map <- ne_states(country = "new zealand", returnclass = "sf")
+
+nz_map <- nz_map %>%
+  dplyr::filter(region %in% c("South Island", "North Island"))
+
+
+nz_map <- nz_map %>%
+  select(name) %>%
+  mutate(count = runif(n(), 0, 100))
 ```
 
-# CawthronColours
+# CawthronColours <img src="man/figures/hex_logo.png" align="right" height="150"/>
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 ## package in development - not yet functional!
 
-The goal of CawthronColours is to to provide official Cawthron colour palettes for use in R. The colour palettes are a mix of well known (e.g. viridis) and custom palettes. All are colour blind friendly.
+The goal of `CawthronColours` is to to provide official Cawthron colour palettes for use in R. The colour palettes are a mix of well known (e.g. `viridis`) and custom palettes. All are colour blind friendly.
+
+Inspiration for package implementation came from the the [`Manu`](https://github.com/G-Thomson/Manu) colour palette package. All palettes except `viridis` were designed by XXX.
+
 
 ## Installation
 
-You can install the development version of CawthronColours like so:
+The package is currently hosted on GitHub and can be installed as follows:
 
 ``` {r, eval = FALSE}
-if (!require("CawthronColours")) install.packages("CawthronColours")
-remotes::install_gitlab("cinst/cawthron-internal-tools/CawthronColours")
+# install.packages("devtools")
+devtools::install_github("cawthron/CawthronColours")
 ```
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
-
+The colour palettes are stored as a list named `cawthron_palettes`. There are categorical (`caw_cat_*`), sequential (`caw_seq_*`) and diverging (`caw_div_*`) palettes.You can see a list of the available palettes like so:
 ```{r example}
 library(CawthronColours)
+names(cawthron_palettes)
+```
 
+A helper function `get_pal()` returns the desired colour palette as a vector: For example:
+```{r}
+get_pal("caw_cat_1")
+```
+
+There is also a helper function `print_pal()` which displays the palette in the graphics window.
+```{r, fig.height=1}
+caw_col <- get_pal("caw_cat_1")
+print_pal(caw_col)
+```
+
+
+Below area few examples of plots made using base `R` and [`ggplot2`](https://ggplot2.tidyverse.org/). We use the `gapminder` package to get some toy data and `rnatrualearch` to get a map of New Zealand.
+
+```{r}
+library(gapminder)
+library(ggplot2)
+library(dplyr)
+
+# For categorical colours we use scale_colour_manual()
+ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
+  scale_colour_manual(values = get_pal("caw_cat_1")) +
+  theme_classic() +
+  theme(legend.position = "none")
+# for continuous or sequential palettes we use scale_fill_gradientn()
+ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+# download a map of NZ
+nz_map <- ne_states(country = "new zealand", returnclass = "sf")
+
+# remove outlying islands
+nz_map <- nz_map %>%
+  dplyr::filter(region %in% c("South Island", "North Island"))
+
+# add a random variable for each region
+nz_map <- nz_map %>%
+  select(name) %>%
+  mutate(count = runif(n(), 0, 100))
+
+# plot - use scale_fill_gradientn() and scale_colour_gradientn() to colour the
+# regions by the random variable we just created
+ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
+  scale_colour_gradientn(colours = get_pal("caw_seq_1"))  +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+# Palettes
+Overview of the different colour palettes 
+
+
+## Categorical palettes
+
+### Cawthron rainbow - `caw_cat_1`
+
+```{r, echo=FALSE}
+p1 <- fun_xx(get_pal("caw_cat_1"))
+
+
+p2 <- ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
+  scale_colour_manual(values = get_pal("caw_cat_1")) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p1 / p2  + plot_layout(heights = c(1, 3))
+```
+
+
+### Warm and cool - `caw_cat_2`
+
+```{r, echo=FALSE}
+p1 <- fun_xx(get_pal("caw_cat_2"))
+
+
+p2 <- ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
+  scale_colour_manual(values = get_pal("caw_cat_2")) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p1 / p2  + plot_layout(heights = c(1, 3))
 
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+## Sequential palettes
+
+### Tuaone - `caw_seq_1`
+
+```{r, echo=FALSE}
+
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
+  scale_colour_gradientn(colours = get_pal("caw_seq_1"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_seq_1"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+
+```
+
+### Viridis - `caw_seq_2`
+
+```{r, echo=FALSE}
+
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_seq_2"))  +
+  scale_colour_gradientn(colours = get_pal("caw_seq_2"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_seq_2"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_seq_2"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+
+```
+
+### Tāne Mahuta - `caw_seq_3`
+
+```{r, echo=FALSE}
+
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_seq_3"))  +
+  scale_colour_gradientn(colours = get_pal("caw_seq_3"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_seq_3"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_seq_3"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+
+```
+
+### Tangaroa - `caw_seq_4`
+
+```{r, echo=FALSE}
+
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_seq_4"))  +
+  scale_colour_gradientn(colours = get_pal("caw_seq_4"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_seq_4"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_seq_4"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+
+```
+
+### Papatūānuku - `caw_seq_5`
+
+```{r, echo=FALSE}
+
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_seq_5"))  +
+  scale_colour_gradientn(colours = get_pal("caw_seq_5"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_seq_5"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_seq_5"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+
+```
+
+
+## diverging palettes
+
+### Sun to sea - `caw_div_1`
+
+```{r, echo=FALSE}
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_div_1"))  +
+  scale_colour_gradientn(colours = get_pal("caw_div_1"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_div_1"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_div_1"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+```
+
+
+### Hot to cold - `caw_div_2`
+
+```{r, echo=FALSE}
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_div_2"))  +
+  scale_colour_gradientn(colours = get_pal("caw_div_2"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_div_2"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_div_2"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+```
+
+
+
+### Whenua ki te wai - `caw_div_3`
+
+```{r, echo=FALSE}
+p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
+  geom_sf() +
+  scale_fill_gradientn(colours = get_pal("caw_div_3"))  +
+  scale_colour_gradientn(colours = get_pal("caw_div_3"))  +
+  theme_void() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)) +
+  scale_fill_gradientn(colours = get_pal("caw_div_3"))  +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p0 <- fun_xx(get_pal("caw_div_3"))
+
+
+p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
+```
+
+

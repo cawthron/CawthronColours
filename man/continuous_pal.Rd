@@ -4,12 +4,10 @@
 \alias{continuous_pal}
 \title{Continuous colour palettes}
 \usage{
-continuous_pal(pal = "Hihi", col_index = c(1, 2), gradient_n = 100)
+continuous_pal(pal = "caw_div_3", gradient_n = 100)
 }
 \arguments{
 \item{pal}{name of the colour palette to extract two gradient end points from.}
-
-\item{col_index}{index of the two end point colours.}
 
 \item{gradient_n}{number of colours in the continuous gradient}
 }
@@ -20,6 +18,6 @@ a vector of colours
 Generate a continuous colour palette based on one of the existing colour palettes.
 }
 \examples{
-my_con_pal <- continuous_pal(pal = "Hihi", col_index = c(1,2), gradient_n = 100)
+my_con_pal <- continuous_pal(pal = "caw_div_3", gradient_n = 100)
 print_pal(my_con_pal)
 }

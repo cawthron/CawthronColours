@@ -7,7 +7,12 @@
 get_pal(name)
 }
 \arguments{
-\item{name}{Name of desired palette. Choices are: \code{Hihi}, \code{Hoiho}, \code{Kaka}, \code{Kakariki}, and \code{Kakapo}.}
+\item{name}{Name of desired palette. Choices are:
+\itemize{
+\item categorical: \code{caw_cat_1}, \code{caw_cat_2}
+\item diverging: \code{caw_div_1}, \code{caw_div_2}, \code{caw_div_3}
+\item sequential: \code{caw_seq_1}, \code{caw_seq_2}, \code{caw_seq_3}, \code{caw_seq_4}, \code{caw_seq_5}
+}}
 }
 \value{
 A vector of colours.
@@ -16,5 +21,5 @@ A vector of colours.
 Return official Cawthron colour palettes.
 }
 \examples{
-get_pal("Hihi")
+get_pal("caw_div_1")
 }
