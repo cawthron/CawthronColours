@@ -95,13 +95,13 @@ library(gapminder)
 library(ggplot2)
 library(dplyr)
 
-# For categorical colours we use scale_colour_manual()
+# For categorical colours we use scale_colour_manual (or scale_fill_manual)
 ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
   geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
   scale_colour_manual(values = get_pal("caw_cat_1")) +
   theme_classic() +
   theme(legend.position = "none")
-# for continuous or sequential palettes we use scale_fill_gradientn()
+# for continuous or sequential palettes we use scale_fill_gradientn (or scale_colour_manual)
 ggplot(faithfuld) +
   geom_tile(aes(waiting, eruptions, fill = density)) +
   scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
@@ -119,7 +119,7 @@ nz_map <- nz_map %>%
   dplyr::select(name) |>
   dplyr::mutate(count = runif(dplyr::n(), 0, 100))
 
-# plot - use scale_fill_gradientn() and scale_colour_gradientn() to colour the
+# plot - use scale_fill_gradientn and scale_colour_gradientn to colour the
 # regions by the random variable we just created
 ggplot(nz_map, aes(fill = count, colour = count)) +
   geom_sf() +
