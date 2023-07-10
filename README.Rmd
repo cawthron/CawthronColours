@@ -45,7 +45,7 @@ names(myColors) <- as.factor(df1$col)
 #   mutate(count = runif(n(), 0, 100))
 ```
 
-# CawthronColours <img src="man/figures/CawthronCircle.png" align="right" height="150"/>
+# CawthronColours <img src="man/figures/cawthronColours_logo.svg" align="right" height="150"/>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -85,12 +85,25 @@ caw_col <- get_pal("caw_cat_1")
 print_pal(caw_col)
 ```
 
-Below area few examples of plots made using [`ggplot2`](https://ggplot2.tidyverse.org/). We use the [`gapminder`](https://github.com/jennybc/gapminder) package to get some toy data and [`rnaturalearth`](https://github.com/ropensci/rnaturalearth) to get a map of New Zealand.
+Below area few examples of plots made using [`ggplot2`](https://ggplot2.tidyverse.org/). We use the [`gapminder`](https://github.com/jennybc/gapminder) package to get some toy data and [`rnaturalearth`](https://github.com/ropensci/rnaturalearth) to get a map of New Zealand. The key `ggplot2` functions needed to use the `CawthronColours` palettes are:
 
-```{r}
+For categorical palettes:
+
+* `scale_colour_manual()`
+* `scale_fill_manual()`
+
+
+For diverging or sequential palettes:
+
+* `scale_colour_gradientn()`
+* `scale_fill_gradientn()`
+
+
+```{r, message=FALSE, warning=FALSE}
 library(gapminder)
 library(ggplot2)
 library(dplyr)
+library(rnaturalearth)
 
 # For categorical colours we use scale_colour_manual (or scale_fill_manual)
 ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +

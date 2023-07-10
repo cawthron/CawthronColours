@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# CawthronColours <img src="man/figures/CawthronCircle.png" align="right" height="150"/>
+# CawthronColours <img src="man/figures/cawthronColours_logo.svg" align="right" height="150"/>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -65,21 +65,24 @@ Below area few examples of plots made using
 [`gapminder`](https://github.com/jennybc/gapminder) package to get some
 toy data and
 [`rnaturalearth`](https://github.com/ropensci/rnaturalearth) to get a
-map of New Zealand.
+map of New Zealand. The key `ggplot2` functions needed to use the
+`CawthronColours` palettes are:
+
+For categorical palettes:
+
+- `scale_colour_manual()`
+- `scale_fill_manual()`
+
+For diverging or sequential palettes:
+
+- `scale_colour_gradientn()`
+- `scale_fill_gradientn()`
 
 ``` r
 library(gapminder)
-#> Warning: package 'gapminder' was built under R version 4.3.1
 library(ggplot2)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
+library(rnaturalearth)
 
 # For categorical colours we use scale_colour_manual (or scale_fill_manual)
 ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
@@ -105,10 +108,6 @@ ggplot(faithfuld) +
 ``` r
 # download a map of NZ
 nz_map <- rnaturalearth::ne_states(country = "new zealand", returnclass = "sf")
-#> The legacy packages maptools, rgdal, and rgeos, underpinning this package
-#> will retire shortly. Please refer to R-spatial evolution reports on
-#> https://r-spatial.org/r/2023/05/15/evolution4.html for details.
-#> This package is now running under evolution status 0
 
 # remove outlying islands
 nz_map <- nz_map |>
