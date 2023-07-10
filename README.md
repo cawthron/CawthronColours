@@ -70,13 +70,13 @@ map of New Zealand. The key `ggplot2` functions needed to use the
 
 For categorical palettes:
 
-- `scale_colour_manual()`
-- `scale_fill_manual()`
+- `scale_colour_manual(values = get_pal("caw_cat_1"))`
+- `scale_fill_manual(values = get_pal("caw_cat_1"))`
 
 For diverging or sequential palettes:
 
-- `scale_colour_gradientn()`
-- `scale_fill_gradientn()`
+- `scale_colour_gradientn(colours = get_pal("caw_seq_1"))`
+- `scale_fill_gradientn(colours = get_pal("caw_seq_1"))`
 
 ``` r
 library(gapminder)
