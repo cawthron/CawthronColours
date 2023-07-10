@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# CawthronColours <img src="man/figures/hex_logo.png" align="right" height="150"/>
+# CawthronColours <img src="man/figures/CawthronCircle.png" align="right" height="150"/>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -14,7 +14,7 @@ palettes for use in R. The colour palettes are a mix of well known
 
 Inspiration for package implementation came from the the
 [`Manu`](https://github.com/G-Thomson/Manu) colour palette package. All
-palettes except `viridis` were designed by XXX.
+palettes except `viridis` and `lawa` were designed by Jacqui Stuart.
 
 ## Installation
 
@@ -37,11 +37,11 @@ palettes like so:
 library(CawthronColours)
 names(cawthron_palettes)
 #>  [1] "caw_div_1" "caw_div_2" "caw_div_3" "caw_seq_1" "caw_seq_2" "caw_seq_3"
-#>  [7] "caw_seq_4" "caw_seq_5" "caw_cat_1" "caw_cat_2"
+#>  [7] "caw_seq_4" "caw_seq_5" "caw_cat_1" "caw_cat_2" "caw_cat_3"
 ```
 
 A helper function `get_pal()` returns the desired colour palette as a
-vector: For example:
+vector, for example:
 
 ``` r
 get_pal("caw_cat_1")
@@ -69,8 +69,17 @@ map of New Zealand.
 
 ``` r
 library(gapminder)
+#> Warning: package 'gapminder' was built under R version 4.3.1
 library(ggplot2)
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
 # For categorical colours we use scale_colour_manual (or scale_fill_manual)
 ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
@@ -96,6 +105,10 @@ ggplot(faithfuld) +
 ``` r
 # download a map of NZ
 nz_map <- rnaturalearth::ne_states(country = "new zealand", returnclass = "sf")
+#> The legacy packages maptools, rgdal, and rgeos, underpinning this package
+#> will retire shortly. Please refer to R-spatial evolution reports on
+#> https://r-spatial.org/r/2023/05/15/evolution4.html for details.
+#> This package is now running under evolution status 0
 
 # remove outlying islands
 nz_map <- nz_map |>
@@ -132,38 +145,42 @@ Overview of the different colour palettes
 
 ![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
+### Lawa - `caw_cat_3`
+
+![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+
 ## Sequential palettes
 
 ### Tuaone - `caw_seq_1`
 
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 ### Viridis - `caw_seq_2`
 
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
 ### Tāne Mahuta - `caw_seq_3`
 
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
 ### Tangaroa - `caw_seq_4`
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
 
 ### Papatūānuku - `caw_seq_5`
 
-![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
 
 ## diverging palettes
 
 ### Sun to sea - `caw_div_1`
 
-![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
 
 ### Hot to cold - `caw_div_2`
 
-![](man/figures/README-unnamed-chunk-14-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->
 
 ### Whenua ki te wai - `caw_div_3`
 
-![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-16-1.png)<!-- -->

@@ -9,7 +9,7 @@ get_pal(name)
 \arguments{
 \item{name}{Name of desired palette. Choices are:
 \itemize{
-\item categorical: \code{caw_cat_1}, \code{caw_cat_2}
+\item categorical: \code{caw_cat_1}, \code{caw_cat_2}, \code{caw_cat_3}
 \item diverging: \code{caw_div_1}, \code{caw_div_2}, \code{caw_div_3}
 \item sequential: \code{caw_seq_1}, \code{caw_seq_2}, \code{caw_seq_3}, \code{caw_seq_4}, \code{caw_seq_5}
 }}

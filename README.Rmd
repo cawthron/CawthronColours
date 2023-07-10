@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 
 # ggplot - display colour palette
-fun_xx <- function(col_pal) {
+fun_display <- function(col_pal) {
   n <- length(col_pal)
   
 df1 <- data.frame(x = 1:n,
@@ -28,26 +28,24 @@ names(myColors) <- as.factor(df1$col)
     theme_void() +
     theme(legend.position = "none")
 }
-
-library(tidyverse)
-library(gapminder)
-library(CawthronColours)
-library(patchwork)
-library(rnaturalearth)
-
-
-nz_map <- ne_states(country = "new zealand", returnclass = "sf")
-
-nz_map <- nz_map %>%
-  dplyr::filter(region %in% c("South Island", "North Island"))
-
-
-nz_map <- nz_map %>%
-  select(name) %>%
-  mutate(count = runif(n(), 0, 100))
+# 
+# library(tidyverse)
+# library(gapminder)
+ library(CawthronColours)
+ library(patchwork)
+# library(rnaturalearth)
+# 
+# nz_map <- ne_states(country = "new zealand", returnclass = "sf")
+# 
+# nz_map <- nz_map %>%
+#   dplyr::filter(region %in% c("South Island", "North Island"))
+# 
+# nz_map <- nz_map %>%
+#   select(name) %>%
+#   mutate(count = runif(n(), 0, 100))
 ```
 
-# CawthronColours <img src="man/figures/hex_logo.png" align="right" height="150"/>
+# CawthronColours <img src="man/figures/CawthronCircle.png" align="right" height="150"/>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -56,7 +54,7 @@ nz_map <- nz_map %>%
 
 The goal of `CawthronColours` is to to provide official Cawthron colour palettes for use in R. The colour palettes are a mix of well known (e.g. `viridis`) and custom palettes. All are colour blind friendly.
 
-Inspiration for package implementation came from the the [`Manu`](https://github.com/G-Thomson/Manu) colour palette package. All palettes except `viridis` were designed by XXX.
+Inspiration for package implementation came from the the [`Manu`](https://github.com/G-Thomson/Manu) colour palette package. All palettes except `viridis` and `lawa` were designed by Jacqui Stuart.
 
 
 ## Installation
@@ -76,7 +74,7 @@ library(CawthronColours)
 names(cawthron_palettes)
 ```
 
-A helper function `get_pal()` returns the desired colour palette as a vector: For example:
+A helper function `get_pal()` returns the desired colour palette as a vector, for example:
 ```{r}
 get_pal("caw_cat_1")
 ```
@@ -86,7 +84,6 @@ There is also a helper function `print_pal()` which displays the palette in the 
 caw_col <- get_pal("caw_cat_1")
 print_pal(caw_col)
 ```
-
 
 Below area few examples of plots made using [`ggplot2`](https://ggplot2.tidyverse.org/). We use the [`gapminder`](https://github.com/jennybc/gapminder) package to get some toy data and [`rnaturalearth`](https://github.com/ropensci/rnaturalearth) to get a map of New Zealand.
 
@@ -129,18 +126,15 @@ ggplot(nz_map, aes(fill = count, colour = count)) +
   theme(legend.position = "none")
 ```
 
-
 # Palettes
 Overview of the different colour palettes 
-
 
 ## Categorical palettes
 
 ### Cawthron rainbow - `caw_cat_1`
 
 ```{r, echo=FALSE}
-p1 <- fun_xx(get_pal("caw_cat_1"))
-
+p1 <- fun_display(get_pal("caw_cat_1"))
 
 p2 <- ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
   geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
@@ -155,8 +149,7 @@ p1 / p2  + plot_layout(heights = c(1, 3))
 ### Warm and cool - `caw_cat_2`
 
 ```{r, echo=FALSE}
-p1 <- fun_xx(get_pal("caw_cat_2"))
-
+p1 <- fun_display(get_pal("caw_cat_2"))
 
 p2 <- ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
   geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
@@ -165,16 +158,27 @@ p2 <- ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
   theme(legend.position = "none")
 
 p1 / p2  + plot_layout(heights = c(1, 3))
-
 ```
 
+### Lawa - `caw_cat_3`
+
+```{r, echo=FALSE}
+p1 <- fun_display(get_pal("caw_cat_3"))
+
+p2 <- ggplot(gapminder, aes(x = continent, y = lifeExp, colour = continent)) +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0)) +
+  scale_colour_manual(values = get_pal("caw_cat_3")) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+p1 / p2  + plot_layout(heights = c(1, 3))
+```
 
 ## Sequential palettes
 
 ### Tuaone - `caw_seq_1`
 
 ```{r, echo=FALSE}
-
 p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
   geom_sf() +
   scale_fill_gradientn(colours = get_pal("caw_seq_1"))  +
@@ -188,17 +192,15 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_seq_1"))
+p0 <- fun_display(get_pal("caw_seq_1"))
 
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
-
 ```
 
 ### Viridis - `caw_seq_2`
 
 ```{r, echo=FALSE}
-
 p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
   geom_sf() +
   scale_fill_gradientn(colours = get_pal("caw_seq_2"))  +
@@ -212,17 +214,15 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_seq_2"))
+p0 <- fun_display(get_pal("caw_seq_2"))
 
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
-
 ```
 
 ### Tāne Mahuta - `caw_seq_3`
 
 ```{r, echo=FALSE}
-
 p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
   geom_sf() +
   scale_fill_gradientn(colours = get_pal("caw_seq_3"))  +
@@ -236,17 +236,15 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_seq_3"))
+p0 <- fun_display(get_pal("caw_seq_3"))
 
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
-
 ```
 
 ### Tangaroa - `caw_seq_4`
 
 ```{r, echo=FALSE}
-
 p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
   geom_sf() +
   scale_fill_gradientn(colours = get_pal("caw_seq_4"))  +
@@ -260,17 +258,14 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_seq_4"))
-
+p0 <- fun_display(get_pal("caw_seq_4"))
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
-
 ```
 
 ### Papatūānuku - `caw_seq_5`
 
 ```{r, echo=FALSE}
-
 p1 <- ggplot(nz_map, aes(fill = count, colour = count)) +
   geom_sf() +
   scale_fill_gradientn(colours = get_pal("caw_seq_5"))  +
@@ -284,11 +279,9 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_seq_5"))
-
+p0 <- fun_display(get_pal("caw_seq_5"))
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
-
 ```
 
 
@@ -310,8 +303,7 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_div_1"))
-
+p0 <- fun_display(get_pal("caw_div_1"))
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
 ```
@@ -333,8 +325,7 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_div_2"))
-
+p0 <- fun_display(get_pal("caw_div_2"))
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
 ```
@@ -357,8 +348,7 @@ p2 <- ggplot(faithfuld) +
   theme_classic() +
   theme(legend.position = "none")
 
-p0 <- fun_xx(get_pal("caw_div_3"))
-
+p0 <- fun_display(get_pal("caw_div_3"))
 
 p0 / (p1 + p2) + plot_layout(heights = c(1, 3))
 ```

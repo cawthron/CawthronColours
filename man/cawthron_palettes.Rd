@@ -5,7 +5,7 @@
 \alias{cawthron_palettes}
 \title{List of available palettes}
 \format{
-An object of class \code{list} of length 10.
+An object of class \code{list} of length 11.
 }
 \usage{
 cawthron_palettes
@@ -16,7 +16,7 @@ Official Cawthron colour palettes. Use \code{\link{get_pal}} to extract palettes
 \details{
 Palettes include:
 \itemize{
-\item categorical: \code{caw_cat_1}, \code{caw_cat_2}
+\item categorical: \code{caw_cat_1}, \code{caw_cat_2}, , \code{caw_cat_3}
 \item diverging: \code{caw_div_1}, \code{caw_div_2}, \code{caw_div_3}
 \item sequential: \code{caw_seq_1}, \code{caw_seq_2}, \code{caw_seq_3}, \code{caw_seq_4}, \code{caw_seq_5}
 }

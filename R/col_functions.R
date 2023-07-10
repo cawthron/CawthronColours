@@ -4,7 +4,7 @@
 #'
 #' Palettes include:
 #'
-#'  * categorical: \code{caw_cat_1}, \code{caw_cat_2}
+#'  * categorical: \code{caw_cat_1}, \code{caw_cat_2}, , \code{caw_cat_3}
 #'  * diverging: \code{caw_div_1}, \code{caw_div_2}, \code{caw_div_3}
 #'  * sequential: \code{caw_seq_1}, \code{caw_seq_2}, \code{caw_seq_3}, \code{caw_seq_4}, \code{caw_seq_5}
 #'
@@ -26,19 +26,22 @@ cawthron_palettes <- list(
   caw_cat_1 = c("#f48521", "#fbd872", "#acd58e", "#76c044", "#4a7637", "#2f4926", "#4ba791", "#2f725e", "#004f52", "#175c7d", "#029cbd", "#7ac4d3", "#9b99cd", "#6860a0", "#702365", "#e8b5d4", "#85243f", "#c22c43", "#d45f74", "#f8d3ca"),
 
   #------Define colour palettes: Categorical 2 ------#
-  caw_cat_2 = c("#7f1424", "#bc3635", "#ffcc28", "#fbb15d", "#ffe0ae", "#c45b28", "#9ecce5", "#3398d2", "#00549e", "#175c7d", "#d383b7", "#a184bd", "#35356d", "#c3d3c2", "#75a54a", "#205128", "#67bd45", "#c3ce58", "#737f7e", "#083631")
+  caw_cat_2 = c("#7f1424", "#bc3635", "#ffcc28", "#fbb15d", "#ffe0ae", "#c45b28", "#9ecce5", "#3398d2", "#00549e", "#175c7d", "#d383b7", "#a184bd", "#35356d", "#c3d3c2", "#75a54a", "#205128", "#67bd45", "#c3ce58", "#737f7e", "#083631"),
+
+  #------Define colour palettes: Categorical 3 ------#
+  caw_cat_3 = c("#1ea6ac", "#8dbf64", "#fec319", "#f4801f", "#e75227")
+
 )
 
 
-
-
+#------Define colour palettes: Categorical 2 ------#
 #' Select Cawthron palette
 #'
 #' Return official Cawthron colour palettes.
 #'
 #' @param name Name of desired palette. Choices are:
 #'
-#'  * categorical: \code{caw_cat_1}, \code{caw_cat_2}
+#'  * categorical: \code{caw_cat_1}, \code{caw_cat_2}, \code{caw_cat_3}
 #'  * diverging: \code{caw_div_1}, \code{caw_div_2}, \code{caw_div_3}
 #'  * sequential: \code{caw_seq_1}, \code{caw_seq_2}, \code{caw_seq_3}, \code{caw_seq_4}, \code{caw_seq_5}
 #'
