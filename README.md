@@ -6,15 +6,34 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-## package in development - could break at any moment ….
-
 The goal of `CawthronColours` is to to provide official Cawthron colour
 palettes for use in R. The colour palettes are a mix of well known
 (e.g. `viridis`) and custom palettes. All are colour blind friendly.
 
+Our data visualisation colours have been developed for the sole purpose
+of conveying Cawthron’s data insights through plots, graphs and maps.
+
+Cawthron’s primary, secondary and tertiary colour palettes should be
+used in the first instance for all other design applications.
+
+A diverse array of data visualisation colour palette options are
+available, spanning across sequential, diverging, and categorical
+datasets. Select the palette that most effectively conveys your data
+narrative. Remember to consider what your chosen colours might mean to
+your audience.
+
+Colour blindness was taken into consideration when developing these
+colours. A colour blindness reference for each hue can be found in
+Section D of Cawthron’s brand guidelines.
+
+If standardised colours are used in your discipline to represent
+specific data— such as the Trophic Level Index used in lakes, we
+encourage you to adopt these for consistency and alignment.
+
 Inspiration for package implementation came from the the
 [`Manu`](https://github.com/G-Thomson/Manu) colour palette package. All
-palettes except `viridis` and `lawa` were designed by Jacqui Stuart.
+palettes except `viridis` and `lawa` were designed by Jacqui Stuart in
+consultation with McKayla Holloway.
 
 ## Installation
 
@@ -60,7 +79,7 @@ print_pal(caw_col)
 
 ![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
-Below area few examples of plots made using
+Below are a few examples of plots made using
 [`ggplot2`](https://ggplot2.tidyverse.org/). We use the
 [`gapminder`](https://github.com/jennybc/gapminder) package to get some
 toy data and
@@ -136,6 +155,14 @@ Overview of the different colour palettes
 
 ## Categorical palettes
 
+Use these scales to distinguish between categories that don’t have an
+intrinsic order such as taxonomic data.
+
+In an ideal world you wouldn’t have more that 12 categories displayed on
+a single plot. In exceptional scenarios you can generate a
+‘half-saturated’ color variation of the chosen scale to expand colour
+choices while maintaining clarity.
+
 ### Cawthron rainbow - `caw_cat_1`
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
@@ -150,7 +177,16 @@ Overview of the different colour palettes
 
 ## Sequential palettes
 
-### Tuaone - `caw_seq_1`
+Sequential colour scales represent gradients of a single hue,
+transitioning from light to deep tones or vice versa. They provide a
+means of depicting numerical values that span from low to high, such as
+temperature plotting.
+
+These colour scales can be utilised in two ways: as discrete classes,
+where each colour represents a distinct category, or as unclassed
+gradients, forming a continuous spectrum.
+
+### Ocean green - `caw_seq_1`
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
@@ -158,19 +194,37 @@ Overview of the different colour palettes
 
 ![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
-### Tāne Mahuta - `caw_seq_3`
+### Forest - `caw_seq_3`
 
 ![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
-### Tangaroa - `caw_seq_4`
+### Sea blue - `caw_seq_4`
 
 ![](man/figures/README-unnamed-chunk-12-1.png)<!-- -->
 
-### Papatūānuku - `caw_seq_5`
+### Heat - `caw_seq_5`
 
 ![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
 
-## diverging palettes
+## Diverging palettes
+
+Diverging colour scales differ from sequential scales by incorporating a
+bright central value and darker tones at both extremities, enhancing
+data differentiation compared to sequential counterparts. Frequently
+used for portraying positive and negative values, these scales are
+particularly effective when:
+
+- A significant midpoint exists.
+- Emphasising extremes, especially when highlighting the highest and
+  lowest values.
+- Enhancing differences in the data.
+
+Nonetheless, the drawback of diverging colour scales lies in their
+non-intuitiveness, requiring a colour key to avoid confusion. Readers
+may struggle to discern “low” from “high,” or which values are “better”
+and which one is “worse”. A thoughtful colour selection, such as
+associating red with “negative” and green with “positive,” can alleviate
+ambiguity and improve
 
 ### Sun to sea - `caw_div_1`
 
@@ -180,6 +234,6 @@ Overview of the different colour palettes
 
 ![](man/figures/README-unnamed-chunk-15-1.png)<!-- -->
 
-### Whenua ki te wai - `caw_div_3`
+### Forest to river - `caw_div_3`
 
 ![](man/figures/README-unnamed-chunk-16-1.png)<!-- -->
